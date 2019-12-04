@@ -1,9 +1,17 @@
 {
   "name": "mach-learn",
   "version": "1.0.0",
+  "private": true,
   "main": "index.js",
-  "author": "Craig Saxton <craig.saxton@news.co.uk>",
+  "author": "Craig Saxton <csaxton171@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/csaxton171/mach-learn.git"
+  },
+  "bugs": {
+    "url": "https://github.com/csaxton171/mach-learn/issues"
+  },
   "devDependencies": {
     "lerna": "^3.19.0"
   },

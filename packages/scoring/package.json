@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "share library containing various scoring functions",
-  "author": "Craig Saxton <craig.saxton@news.co.uk>",
+  "author": "Craig Saxton <csaxton171@gmail.com>",
   "homepage": "",
   "license": "MIT",
   "main": "lib/scoring.js",
@@ -21,10 +21,15 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@types/chance": "^1.0.7",
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.14",
     "jest": "^24.9.0",
+    "prettier": "1.19.1",
     "ts-jest": "^24.2.0",
     "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "chance": "^1.1.3"
   }
 }
