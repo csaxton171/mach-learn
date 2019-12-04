@@ -1,0 +1,15 @@
+{
+  "name": "mach-learn",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Craig Saxton <craig.saxton@news.co.uk>",
+  "license": "MIT",
+  "devDependencies": {
+    "lerna": "^3.19.0"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}

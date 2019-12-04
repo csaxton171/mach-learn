@@ -1,0 +1,30 @@
+{
+  "name": "@mach-learn/scoring",
+  "version": "0.0.0",
+  "private": true,
+  "description": "share library containing various scoring functions",
+  "author": "Craig Saxton <craig.saxton@news.co.uk>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "lib/scoring.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.14",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.3"
+  }
+}

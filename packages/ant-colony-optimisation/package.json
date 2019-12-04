@@ -1,0 +1,33 @@
+{
+  "name": "@mach-learn/ant-colony-optimisation",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ant colony optimization project",
+  "keywords": [
+    "typescript"
+  ],
+  "author": "Craig Saxton <craig.saxton@news.co.uk>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "lib/ant-colony-optimisation.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.14",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.3"
+  }
+}
