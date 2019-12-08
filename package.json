@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Craig Saxton <csaxton171@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "yarn lerna run test"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/csaxton171/mach-learn.git"
