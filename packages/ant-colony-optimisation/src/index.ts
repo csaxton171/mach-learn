@@ -70,21 +70,10 @@ export const calculateNextMove = <T>(
         while (index === -1 || ant.hasVisited(index)) {
             index = random.getRandomGraphIndex();
         }
-        // console.log(
-        //     `>>RAND>>|${ant.hasMoved}|${wanderProb}<${config.pr}| ['${graph[index]}']`,
-        //     dumpAnts([ant], graph)
-        // );
         return index;
     }
     const probabilities = calculateProbability(ant);
     const r = random.getRandomNumber(0.0, 1.0);
-    // console.log(
-    //     `>>PROBS>>|${r}|`,
-    //     probabilities.map(
-    //         (p, i) => `${graph[i]}|${p.toString().substring(0, 5)}`
-    //     ),
-    //     dumpAnts([ant], graph)
-    // );
     let sum = 0;
     for (let i = 0; i < graph.length; i++) {
         sum += probabilities[i];
@@ -131,6 +120,12 @@ export function* iterate<T>(
         calculateProbability(config, pheromoneMatrix, graph, score)
     );
 
+    let overallBestScore = {
+        iteration: 0,
+        score: Number.MAX_VALUE,
+        result: graph
+    };
+
     for (let iteration = 1; iteration <= maxIterations; iteration++) {
         const ants = march(graph, Ant.createColony(config.antCount), nextMove);
         pheromoneMatrix = evaporatePheromoneMatrix(config, pheromoneMatrix);
@@ -141,6 +136,32 @@ export function* iterate<T>(
             graph,
             ants
         );
-        yield { iteration, score: 0, result: graph };
+
+        overallBestScore = bestScore(
+            overallBestScore,
+            score,
+            graph,
+            iteration,
+            ants
+        );
+        yield overallBestScore;
     }
 }
+
+const bestScore = <T>(
+    currentBest: IterationResult<T>,
+    score: ScoringFunction<T>,
+    graph: T[],
+    iteration: number,
+    candidates: Ant[]
+) =>
+    candidates.reduce((best, candidate) => {
+        const candidateScore = candidate.score(graph, score);
+        return candidateScore < best.score
+            ? {
+                  iteration,
+                  score: candidateScore,
+                  result: candidate.toGraph(graph)
+              }
+            : best;
+    }, currentBest);

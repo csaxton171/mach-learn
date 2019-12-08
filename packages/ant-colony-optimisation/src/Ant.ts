@@ -36,7 +36,11 @@ export class Ant {
     }
 
     toString<T>(graph: T[]) {
-        return `${this.path.map(i => graph[i])}`;
+        return `${this.toGraph(graph)}`;
+    }
+
+    toGraph<T>(graph: T[]) {
+        return this.path.map(i => graph[i]);
     }
 
     static createColony(antCount: number): Ant[] {
