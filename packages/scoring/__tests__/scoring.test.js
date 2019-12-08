@@ -1,7 +1,9 @@
-'use strict';
+"use strict";
 
-const scoring = require('..');
+const scoring = require("..");
 
-describe('@mach-learn/scoring', () => {
-    it('needs tests');
+describe("@mach-learn/scoring", () => {
+  it("needs tests", () => {
+    expect(true).toBe(true);
+  });
 });

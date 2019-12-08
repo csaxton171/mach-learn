@@ -11,7 +11,7 @@ const createRandom = () => ({
 
 describe("when performing ACO", () => {
   describe("when calculating the probability of a next move", () => {
-    it.skip("should moo", () => {
+    it("should moo", () => {
       const ant = new Ant([0, 1, 2, 3]);
       const graph = ["A", "B", "C", "D", "E", "F"];
       const pheromoneMatrix = initialisePheromoneMatrix(

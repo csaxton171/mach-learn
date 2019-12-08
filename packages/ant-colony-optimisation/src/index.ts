@@ -1,13 +1,14 @@
 import { Config } from "./config";
 import { Ant } from "./Ant";
 import { ScoringFunction } from "./scoring";
+import { chanceRandomFactory } from "./random";
 import {
     PheromoneMatrix,
     initialisePheromoneMatrix,
     evaporatePheromoneMatrix,
     updatePheromoneMatrix
 } from "./pheromonMatrix";
-import { Chance } from "chance";
+import { RandomGraphIndex, RandomNumber } from "./random";
 export type MoveProbabilityCalculator = (ant: Ant) => number[];
 
 export const calculateProbability = <T>(
@@ -40,21 +41,6 @@ export const calculateProbability = <T>(
     }
     return result;
 };
-
-export interface RandomGraphIndex {
-    getRandomGraphIndex: () => number;
-}
-
-export interface RandomNumber {
-    getRandomNumber: (min: number, max: number) => number;
-}
-
-const chanceRandom = <T>(graph: T[]) => ({
-    getRandomNumber: (min: number, max: number) =>
-        new Chance().floating({ min, max }),
-    getRandomGraphIndex: () =>
-        new Chance().integer({ min: 0, max: graph.length - 1 })
-});
 
 export type NextMoveCalculator = (ant: Ant) => number;
 
@@ -116,7 +102,7 @@ export function* iterate<T>(
     const nextMove = calculateNextMove(
         config,
         graph,
-        chanceRandom(graph),
+        chanceRandomFactory(graph),
         calculateProbability(config, pheromoneMatrix, graph, score)
     );
 
