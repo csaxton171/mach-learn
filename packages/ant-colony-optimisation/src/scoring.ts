@@ -1,6 +1,6 @@
 export type ScoringFunction<T> = (subject: T[]) => number;
 
-export const alphaDistanceScore = (graph: string[]) => {
+export const alphaDistanceCost = (graph: string[]) => {
     const minPossibleDistance = graph.length - 1;
     const maxPossibleDistance =
         ("Z".charCodeAt(0) - "A".charCodeAt(0)) * (graph.length - 1);
@@ -12,11 +12,10 @@ export const alphaDistanceScore = (graph: string[]) => {
             0
         );
     const d = graphDistance - minPossibleDistance;
-    const dPct = d / (maxPossibleDistance - minPossibleDistance);
-    return 1 - dPct;
+    return d / (maxPossibleDistance - minPossibleDistance);
 };
 
-export const alphaOrderRankScore = (graph: string[]): number => {
+export const alphaOrderRankCost = (graph: string[]): number => {
     const disorderInstances = graph
         .map(c => c.toUpperCase().charCodeAt(0))
         .reduce((acc, cur, idx, array) => {
@@ -25,5 +24,5 @@ export const alphaOrderRankScore = (graph: string[]): number => {
                 ? [...acc, Math.abs(disorderMagnitude)]
                 : acc;
         }, new Array<number>());
-    return 1 - disorderInstances.length / (graph.length - 1);
+    return disorderInstances.length / (graph.length - 1);
 };

@@ -3,7 +3,8 @@ import { ScoringFunction } from "../src/scoring";
 import {
   initialisePheromoneMatrix,
   evaporatePheromoneMatrix,
-  updatePheromoneMatrix
+  updatePheromoneMatrix,
+  dumpPheromoneMatrix
 } from "../src/pheromonMatrix";
 import { Ant } from "../src/Ant";
 
@@ -61,4 +62,11 @@ describe("when initialising the pheromone grid", () => {
       [1.2, 1.2, 1.2]
     ]);
   });
+});
+
+it("should support outputting a string representation of the matrix", () => {
+  const matrix = initialisePheromoneMatrix(3, 6);
+  expect(dumpPheromoneMatrix(matrix)).toEqual(
+    `|         6 |         6 |         6 |\n|         6 |         6 |         6 |\n|         6 |         6 |         6 |\n`
+  );
 });

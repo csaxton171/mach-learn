@@ -1,4 +1,4 @@
-import { Ant } from "../src/Ant";
+import { Ant, dumpAnts } from "../src/Ant";
 
 describe("Ant", () => {
   describe("when reporting whether a grpah element has been visited", () => {
@@ -45,5 +45,38 @@ describe("Ant", () => {
       const ant = new Ant([]);
       expect(ant.hasMoved).toBeFalsy();
     });
+  });
+
+  it("should provide provide path representation in terms of graph elements", () => {
+    const graph = ["A", "B", "C", "D"];
+    const ant = new Ant([1, 3, 0]);
+
+    expect(ant.toGraph(graph)).toEqual(["B", "D", "A"]);
+  });
+
+  it("should provide a string representation of its path in terms of graph elements", () => {
+    expect(new Ant([0, 1, 2]).toString(["A", "B", "C"])).toEqual("A,B,C");
+  });
+
+  describe("when creating a colony", () => {
+    let colony: Ant[];
+    const expectedAntCount = 13;
+    beforeEach(() => {
+      colony = Ant.createColony(expectedAntCount);
+    });
+
+    it("should create a colony sized according to supplied value", () => {
+      expect(colony.length).toEqual(expectedAntCount);
+    });
+    it("should create a colony initialised with untravelled ants", () => {
+      expect(colony.every(ant => !ant.hasMoved)).toBeTruthy();
+    });
+  });
+
+  it("should support dumping ants", () => {
+    const graph = ["A", "B", "C", "D"];
+    const ants = [new Ant([0, 1]), new Ant([2, 3])];
+
+    expect(dumpAnts(ants, graph)).toEqual(`>o[A,B]\n>o[C,D]`);
   });
 });
