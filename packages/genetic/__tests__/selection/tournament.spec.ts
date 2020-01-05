@@ -1,6 +1,13 @@
 import { tournamentFactory } from "../../src/selection";
 
 describe("tournamentFactory", () => {
+  it("should yield a single population member", () => {
+    const mockContestFn = jest.fn().mockReturnValue(1);
+    expect(tournamentFactory(6, mockContestFn)([1, 2, 3, 4, 5, 6]).length).toBe(
+      1
+    );
+  });
+
   it("should execute the specified number of rounds", () => {
     const expectedRounds = 4;
     const mockContestFn = jest.fn().mockReturnValue(1);
