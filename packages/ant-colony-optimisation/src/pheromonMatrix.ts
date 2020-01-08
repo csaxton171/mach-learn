@@ -1,6 +1,7 @@
 import { Config } from "./config";
 import { ScoringFunction } from "./scoring";
 import { Ant } from "./Ant";
+
 export type PheromoneMatrix = number[][];
 
 export const initialisePheromoneMatrix = (

@@ -7,8 +7,9 @@ export const truncationFactory = <T>(breedingRatio: number) => {
         );
     }
     const chance = new Chance();
-    return (population: T[]) => {
+    const result = (population: T[]) => {
         const count = Math.round(population.length * breedingRatio);
         return [population[chance.natural({ min: 0, max: count - 1 })]];
     };
+    return Promise.resolve(result);
 };
