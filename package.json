@@ -16,7 +16,7 @@
     "url": "https://github.com/csaxton171/mach-learn/issues"
   },
   "devDependencies": {
-    "lerna": "^3.19.0"
+    "lerna": "^3.22.1"
   },
   "workspaces": {
     "packages": [
