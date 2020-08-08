@@ -6,7 +6,8 @@
   "author": "Craig Saxton <csaxton171@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "yarn lerna run test"
+    "test": "yarn lerna run test",
+    "upgrade": "lernaupdate"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,8 @@
     "url": "https://github.com/csaxton171/mach-learn/issues"
   },
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "lerna": "^3.22.1",
+    "lerna-update-wizard": "^0.17.8"
   },
   "workspaces": {
     "packages": [
