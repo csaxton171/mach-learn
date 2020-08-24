@@ -19,7 +19,8 @@
   },
   "scripts": {
     "test": "jest",
-    "prettier": "echo $(prettier --version) && prettier \"{__tests__,src}/**/*.{json,ts,md}\"",
+    "fmt:diff": "echo $(prettier --version) && prettier --check \"{__tests__,src}/**/*.{json,ts,md}\"",
+    "fmt:fix": "echo $(prettier --version) && prettier --write \"{__tests__,src}/**/*.{json,ts,md}\"",
     "lint": "yarn eslint \"src/**/*.{ts,js}\" \"__tests__/**/*.{ts,js}\""
   },
   "devDependencies": {
