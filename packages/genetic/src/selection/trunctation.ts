@@ -1,15 +1,15 @@
 import { Chance } from "chance";
+import { SelectionFunction } from "./SelectionFunction";
+import { strict as assert } from "assert";
 
-export const truncationFactory = <T>(breedingRatio: number) => {
-    if (breedingRatio > 1) {
-        throw new Error(
-            `breeding ratio '${breedingRatio}' value must be less than 1.`
-        );
-    }
+export const truncationFactory = (breedingRatio: number): SelectionFunction => {
+    assert.ok(
+        breedingRatio < 1,
+        `breeding ratio '${breedingRatio}' value must be less than 1.`
+    );
     const chance = new Chance();
-    const result = (population: T[]) => {
+    return async <T>(population: T[]) => {
         const count = Math.round(population.length * breedingRatio);
         return [population[chance.natural({ min: 0, max: count - 1 })]];
     };
-    return Promise.resolve(result);
 };

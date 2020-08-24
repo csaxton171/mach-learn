@@ -1,4 +1,3 @@
-export type SelectionFunction = <T>(population: T[]) => Promise<T[]>;
-
-export { tournamentFactory } from "./tournament";
+export { SelectionFunction } from "./SelectionFunction";
+export { tournamentFactory } from "./tournamentFactory";
 export { truncationFactory } from "./trunctation";

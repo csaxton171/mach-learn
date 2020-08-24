@@ -1,13 +1,14 @@
 import { truncationFactory } from "../../src/selection";
 import { range } from "ramda";
+import { SelectionFunction } from "../../src/selection";
 
 describe("truncationFactory", () => {
   const population: number[] = range(1, 101);
-  const selector = truncationFactory<number>(0.25);
+  const selector: SelectionFunction = truncationFactory(0.25);
   let result: number[];
 
-  beforeAll(() => {
-    result = selector(population);
+  beforeAll(async () => {
+    result = await selector(population);
   });
 
   it("should yield a single population member", () =>
@@ -19,6 +20,6 @@ describe("truncationFactory", () => {
   });
 
   it("should throw an exception if configured with too large a breeding ration", () => {
-    expect(() => truncationFactory<number>(1.02)).toThrow();
+    expect(() => truncationFactory(1.02)).toThrow();
   });
 });
