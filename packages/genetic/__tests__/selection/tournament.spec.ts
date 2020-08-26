@@ -1,13 +1,13 @@
 import { tournamentFactory } from "../../src/selection";
+import { Phenome } from "../../src/Phenome";
 
 describe("tournamentFactory", () => {
   it("should yield a single population member", async () => {
     const mockContestFn = jest.fn().mockReturnValue(1);
-
     const expected = await tournamentFactory(
       6,
       mockContestFn
-    )([1, 2, 3, 4, 5, 6]);
+    )(Phenome.from([1, 2, 3, 4, 5, 6]));
 
     expect(expected).toHaveLength(1);
   });
@@ -17,17 +17,17 @@ describe("tournamentFactory", () => {
     const mockContestFn = jest.fn().mockReturnValue(1);
     const sut = tournamentFactory(expectedRounds, mockContestFn);
 
-    await sut([1, 2, 3, 4, 5, 6]);
+    await sut(Phenome.from([1, 2, 3, 4, 5, 6]));
 
     expect(mockContestFn).toBeCalledTimes(expectedRounds);
   });
 
   it("should return the winning population member", async () => {
-    const expectedChampion = 22;
+    const expectedChampion = new Phenome(22);
     const mockContestFn = jest.fn().mockReturnValue(expectedChampion);
     const sut = tournamentFactory(5, mockContestFn);
 
-    const result = await sut([1, 22, 99]);
+    const result = await sut(Phenome.from([1, 22, 99]));
 
     expect(result).toMatchObject([expectedChampion]);
   });
