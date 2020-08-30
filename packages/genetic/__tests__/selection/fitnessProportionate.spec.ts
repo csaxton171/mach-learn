@@ -2,12 +2,11 @@ import {
   fitnessProportionateFactory,
   ScoringFunction,
 } from "../../src/selection";
-import { ScorablePhenome, Phenome, PhenomeValueType } from "../../src/Phenome";
+import { ScorablePhenome, Phenome } from "../../src/Phenome";
 
 describe("fitnessProportionate", () => {
-  const scoreByScoreProp: ScoringFunction = (
-    subject: Phenome<PhenomeValueType>
-  ) => (subject as ScorablePhenome<PhenomeValueType>).score;
+  const scoreByScoreProp: ScoringFunction = (subject: Phenome) =>
+    (subject as ScorablePhenome).score;
 
   it("should return phenome based on phenome score proportion of total", async () => {
     const expected = new ScorablePhenome([0]).withScore(20);

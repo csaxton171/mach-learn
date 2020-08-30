@@ -3,9 +3,9 @@ import { RandomNatural, chanceRandomNatural } from "../randomisation";
 import { range } from "ramda";
 import { strict as assert } from "assert";
 
-const findUnallocated = <T extends PhenomeValueType>(
+const findUnallocated = (
     allocations: Map<PhenomeValueType, boolean>,
-    phenome: Phenome<T>
+    phenome: Phenome
 ) => {
     const result = phenome.value.find((v) => !allocations.has(v));
     if (result !== undefined) {
@@ -28,14 +28,14 @@ const allocatedToOffspring = (
 export const crossoverMutationFactory = (
     cutLength: number,
     randomNatural: RandomNatural = chanceRandomNatural
-) => <T extends PhenomeValueType>(parent1: Phenome<T>, parent2: Phenome<T>) => {
+) => (parent1: Phenome, parent2: Phenome) => {
     assert.ok(
         cutLength > 0,
         `invalid cutLength [${cutLength}]: must be greater than zero`
     );
 
-    const offspring1 = new Array<T>(parent1.value.length);
-    const offspring2 = new Array<T>(parent1.value.length);
+    const offspring1 = new Array(parent1.value.length);
+    const offspring2 = new Array(parent1.value.length);
 
     const cutPoint1 = randomNatural(0, offspring1.length - cutLength);
     const cutPoint2 = cutPoint1 + (cutLength - 1);
@@ -56,13 +56,6 @@ export const crossoverMutationFactory = (
             offspring1[i] = findUnallocated(used2, parent1);
             offspring2[i] = findUnallocated(used1, parent2);
         });
-
-    // for (let i = 0; i < parent1.value.length; i++) {
-    //     if (i < cutPoint1 || i > cutPoint2) {
-    //         offspring1[i] = findUnallocated(used2, parent1);
-    //         offspring2[i] = findUnallocated(used1, parent2);
-    //     }
-    // }
 
     return [new ScorablePhenome(offspring1), new ScorablePhenome(offspring2)];
 };

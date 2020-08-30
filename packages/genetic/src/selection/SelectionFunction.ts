@@ -1,8 +1,3 @@
-import { Phenome, PhenomeValueType } from "../Phenome";
+import { Phenome } from "../Phenome";
 
-export type SelectionFunction = <
-    P extends PhenomeValueType,
-    T extends Phenome<P>
->(
-    population: T[]
-) => Promise<T[]>;
+export type SelectionFunction = (population: Phenome[]) => Promise<Phenome[]>;

@@ -4,11 +4,11 @@ import { SelectionFunction } from "../../src/selection";
 import { Phenome, ScorablePhenome } from "../../src/Phenome";
 
 describe("truncationFactory", () => {
-  const population: Phenome<number>[] = range(1, 101).map(
+  const population: Phenome[] = range(1, 101).map(
     (v) => new ScorablePhenome([v])
   );
   const selector: SelectionFunction = truncationFactory(0.25);
-  let result: Phenome<number>[];
+  let result: Phenome[];
 
   beforeAll(async () => {
     result = await selector(population);

@@ -1,15 +1,15 @@
 import { SelectionFunction } from "./SelectionFunction";
-import { Phenome, PhenomeValueType } from "../Phenome";
+import { Phenome } from "../Phenome";
 import { strict as assert } from "assert";
 import { RandomFloat, chanceRandomFloat } from "../randomisation";
 
-export type ScoringFunction = (subject: Phenome<PhenomeValueType>) => number;
+export type ScoringFunction = (subject: Phenome) => number;
 
 export const fitnessProportionateFactory = (
     score: ScoringFunction,
     randomFloat: RandomFloat = chanceRandomFloat
 ): SelectionFunction => {
-    return async <T extends Phenome<PhenomeValueType>>(population: T[]) => {
+    return async (population: Phenome[]) => {
         const totalScore = population.reduce(
             (sum, phenome) => sum + score(phenome),
             0

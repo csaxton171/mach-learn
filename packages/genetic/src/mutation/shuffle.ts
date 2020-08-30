@@ -1,4 +1,4 @@
-import { Phenome, PhenomeValueType } from "../Phenome";
+import { Phenome } from "../Phenome";
 import { strict as assert } from "assert";
 import { range } from "ramda";
 import { RandomIndex, chanceRandomIndex } from "../randomisation";
@@ -6,7 +6,7 @@ import { RandomIndex, chanceRandomIndex } from "../randomisation";
 export const shuffleMutationFactory = (
     flips: number,
     randomIndex: RandomIndex = chanceRandomIndex
-) => <T extends PhenomeValueType>(parent: Phenome<T>) => {
+) => (parent: Phenome) => {
     const offspring = parent.clone();
     assert.ok(Array.isArray(offspring.value), "phenome value must be an array");
     assert.ok(

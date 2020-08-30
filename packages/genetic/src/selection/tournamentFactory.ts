@@ -1,22 +1,19 @@
 import { SelectionFunction } from "./SelectionFunction";
-import { Phenome, PhenomeValueType } from "../Phenome";
+import { Phenome } from "../Phenome";
 import { RandomSelectN, chanceRandomSelectN } from "../randomisation";
 import { strict as assert } from "assert";
 
-export type ContestFunction = <
-    P extends PhenomeValueType,
-    T extends Phenome<P>
->(
-    contestant1: T,
-    contestant2: T
-) => Promise<T>;
+export type ContestFunction = (
+    contestant1: Phenome,
+    contestant2: Phenome
+) => Promise<Phenome>;
 
-const pickPeer = <P extends PhenomeValueType, T extends Phenome<P>>(
+const pickPeer = (
     randomSelect: RandomSelectN,
-    champion: T,
-    population: T[]
-): T => {
-    let peer: T = champion;
+    champion: Phenome,
+    population: Phenome[]
+): Phenome => {
+    let peer: Phenome = champion;
     assert.ok(population.length > 0, "population must have elements");
     while (peer === champion) {
         peer = randomSelect(population)[0];
@@ -29,9 +26,7 @@ export const tournamentFactory = (
     contestFunction: ContestFunction,
     randomSelect: RandomSelectN = chanceRandomSelectN
 ): SelectionFunction => {
-    return async <P extends PhenomeValueType, T extends Phenome<P>>(
-        population: T[]
-    ) => {
+    return async (population: Phenome[]) => {
         let champion = randomSelect(population)[0];
         for (let i = 0; i < numberOfRounds; i++) {
             champion = await contestFunction(

@@ -9,7 +9,9 @@ describe("mutation", () => {
       const sut = crossoverMutationFactory(2, jest.fn().mockReturnValue(3));
 
       const parent1 = new ScorablePhenome([1, 2, 3, 4, 5, 6, 7, 8]);
-      const parent2 = new ScorablePhenome(parent1.value.map((v) => v * 100));
+      const parent2 = new ScorablePhenome(
+        parent1.value.map((v) => (v as number) * 100)
+      );
 
       const result = sut(parent1, parent2);
 
