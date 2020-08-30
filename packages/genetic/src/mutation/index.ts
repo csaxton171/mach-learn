@@ -1,1 +1,2 @@
-export { shuffleMutationFactory, chanceRandomIndex } from "./shuffle";
+export * from "./shuffle";
+export * from "./crossover";

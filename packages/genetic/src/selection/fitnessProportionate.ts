@@ -1,22 +1,20 @@
 import { SelectionFunction } from "./SelectionFunction";
-import { Phenome } from "../Phenome";
-import { Chance } from "chance";
+import { Phenome, PhenomeValueType } from "../Phenome";
 import { strict as assert } from "assert";
+import { RandomFloat, chanceRandomFloat } from "../randomisation";
 
-type RandomPercentage = () => number;
-
-const chanceRandomPercentage: RandomPercentage = () =>
-    new Chance().floating({ min: 0, max: 1 });
+export type ScoringFunction = (subject: Phenome<PhenomeValueType>) => number;
 
 export const fitnessProportionateFactory = (
-    randomPercentage: RandomPercentage = chanceRandomPercentage
+    score: ScoringFunction,
+    randomFloat: RandomFloat = chanceRandomFloat
 ): SelectionFunction => {
-    return async <T extends Phenome>(population: T[]) => {
+    return async <T extends Phenome<PhenomeValueType>>(population: T[]) => {
         const totalScore = population.reduce(
-            (sum, { score }) => sum + score,
+            (sum, phenome) => sum + score(phenome),
             0
         );
-        const targetPercentage = randomPercentage();
+        const targetPercentage = randomFloat(0, 1);
         assert.ok(
             targetPercentage <= 1 && targetPercentage >= 0,
             `invalid percentage: [${targetPercentage}] randomPercentage must return a value between 0 and 1 inclusive`
@@ -24,7 +22,7 @@ export const fitnessProportionateFactory = (
 
         let coveredSorFar = 0;
         for (let individual of population) {
-            coveredSorFar += individual.score / totalScore;
+            coveredSorFar += score(individual) / totalScore;
             if (targetPercentage < coveredSorFar) {
                 return [individual];
             }

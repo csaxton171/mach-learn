@@ -1,5 +1,6 @@
-import { shuffleMutationFactory, chanceRandomIndex } from "../../src/mutation";
+import { shuffleMutationFactory } from "../../src/mutation";
 import { ScorablePhenome } from "../../src/Phenome";
+import { chanceRandomIndex } from "../../src/randomisation";
 
 describe("shuffle", () => {
   it("should swap values using random selection within array", () => {
@@ -23,7 +24,7 @@ describe("shuffle", () => {
 
   it("should throw an exception if Phenome value is not an array", () => {
     const sut = shuffleMutationFactory(1, jest.fn());
-    expect(() => sut(new ScorablePhenome("ka-boom"))).toThrowError(
+    expect(() => sut(new ScorablePhenome("ka-boom" as any))).toThrowError(
       /must be an array/
     );
   });

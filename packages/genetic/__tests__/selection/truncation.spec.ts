@@ -1,12 +1,14 @@
 import { truncationFactory } from "../../src/selection";
 import { range } from "ramda";
 import { SelectionFunction } from "../../src/selection";
-import { Phenome } from "../../src/Phenome";
+import { Phenome, ScorablePhenome } from "../../src/Phenome";
 
 describe("truncationFactory", () => {
-  const population: Phenome[] = Phenome.from(range(1, 101));
+  const population: Phenome<number>[] = range(1, 101).map(
+    (v) => new ScorablePhenome([v])
+  );
   const selector: SelectionFunction = truncationFactory(0.25);
-  let result: Phenome[];
+  let result: Phenome<number>[];
 
   beforeAll(async () => {
     result = await selector(population);
@@ -16,8 +18,8 @@ describe("truncationFactory", () => {
     expect(result.length).toBe(1));
 
   it("should select a member from the specified subset of population", () => {
-    expect(result[0].value).toBeGreaterThanOrEqual(1);
-    expect(result[0].value).toBeLessThanOrEqual(100);
+    expect(result[0].value[0]).toBeGreaterThanOrEqual(1);
+    expect(result[0].value[0]).toBeLessThanOrEqual(100);
   });
 
   it("should throw an exception if configured with too large a breeding ration", () => {

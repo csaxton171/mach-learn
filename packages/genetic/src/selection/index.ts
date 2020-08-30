@@ -1,4 +1,4 @@
-export { SelectionFunction } from "./SelectionFunction";
-export { tournamentFactory } from "./tournamentFactory";
-export { truncationFactory } from "./trunctation";
-export { fitnessProportionateFactory } from "./fitnessProportionate";
+export * from "./SelectionFunction";
+export * from "./tournamentFactory";
+export * from "./trunctation";
+export * from "./fitnessProportionate";

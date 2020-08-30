@@ -5,14 +5,15 @@ export interface Scorable {
 
 export type PhenomeValueType = number | string | object;
 
-export interface Phenome {
-    value: PhenomeValueType | PhenomeValueType[];
-    clone: () => Phenome;
+export interface Phenome<T extends PhenomeValueType> {
+    value: T[];
+    clone: () => Phenome<T>;
 }
 
-export class ScorablePhenome implements Phenome, Scorable {
+export class ScorablePhenome<T extends PhenomeValueType>
+    implements Phenome<T>, Scorable {
     public score: number = 0;
-    constructor(private v: PhenomeValueType | PhenomeValueType[]) {}
+    constructor(private v: T[]) {}
 
     get value() {
         return this.v;
@@ -25,9 +26,5 @@ export class ScorablePhenome implements Phenome, Scorable {
     withScore(score: number) {
         this.score = score;
         return this;
-    }
-
-    static from<T extends PhenomeValueType>(values: T[]) {
-        return values.map((v) => new ScorablePhenome(v));
     }
 }

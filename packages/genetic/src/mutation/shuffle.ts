@@ -1,17 +1,12 @@
 import { Phenome, PhenomeValueType } from "../Phenome";
 import { strict as assert } from "assert";
-import { Chance } from "chance";
 import { range } from "ramda";
-
-export type RandomIndex = (values: PhenomeValueType[]) => number;
-
-export const chanceRandomIndex = (values: PhenomeValueType[]) =>
-    new Chance().natural({ min: 0, max: values.length - 1 });
+import { RandomIndex, chanceRandomIndex } from "../randomisation";
 
 export const shuffleMutationFactory = (
     flips: number,
     randomIndex: RandomIndex = chanceRandomIndex
-) => (parent: Phenome) => {
+) => <T extends PhenomeValueType>(parent: Phenome<T>) => {
     const offspring = parent.clone();
     assert.ok(Array.isArray(offspring.value), "phenome value must be an array");
     assert.ok(

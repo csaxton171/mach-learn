@@ -1,13 +1,16 @@
 import { tournamentFactory } from "../../src/selection";
-import { Phenome } from "../../src/Phenome";
+import { ScorablePhenome } from "../../src/Phenome";
 
 describe("tournamentFactory", () => {
   it("should yield a single population member", async () => {
     const mockContestFn = jest.fn().mockReturnValue(1);
-    const expected = await tournamentFactory(
-      6,
-      mockContestFn
-    )(Phenome.from([1, 2, 3, 4, 5, 6]));
+    const sut = tournamentFactory(6, mockContestFn);
+
+    const expected = await sut([
+      new ScorablePhenome([1]),
+      new ScorablePhenome([2]),
+      new ScorablePhenome([3]),
+    ]);
 
     expect(expected).toHaveLength(1);
   });
@@ -17,17 +20,22 @@ describe("tournamentFactory", () => {
     const mockContestFn = jest.fn().mockReturnValue(1);
     const sut = tournamentFactory(expectedRounds, mockContestFn);
 
-    await sut(Phenome.from([1, 2, 3, 4, 5, 6]));
+    await sut([new ScorablePhenome([1]), new ScorablePhenome([1])]);
 
     expect(mockContestFn).toBeCalledTimes(expectedRounds);
   });
 
   it("should return the winning population member", async () => {
-    const expectedChampion = new Phenome(22);
+    const expectedChampion = new ScorablePhenome([1]);
     const mockContestFn = jest.fn().mockReturnValue(expectedChampion);
     const sut = tournamentFactory(5, mockContestFn);
 
-    const result = await sut(Phenome.from([1, 22, 99]));
+    const result = await sut([
+      new ScorablePhenome([1]),
+      new ScorablePhenome([1]),
+      new ScorablePhenome([1]),
+      expectedChampion,
+    ]);
 
     expect(result).toMatchObject([expectedChampion]);
   });
