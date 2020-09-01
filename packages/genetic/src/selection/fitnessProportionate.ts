@@ -2,8 +2,7 @@ import { SelectionFunction } from "./SelectionFunction";
 import { Phenome } from "../Phenome";
 import { strict as assert } from "assert";
 import { RandomFloat, chanceRandomFloat } from "../randomisation";
-
-export type ScoringFunction = (subject: Phenome) => number;
+import { ScoringFunction } from "../ScoringFunction";
 
 export const fitnessProportionateFactory = (
     score: ScoringFunction,

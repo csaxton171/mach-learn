@@ -1,12 +1,10 @@
 import { truncationFactory } from "../../src/selection";
 import { range } from "ramda";
 import { SelectionFunction } from "../../src/selection";
-import { Phenome, ScorablePhenome } from "../../src/Phenome";
+import { Phenome } from "../../src/Phenome";
 
 describe("truncationFactory", () => {
-  const population: Phenome[] = range(1, 101).map(
-    (v) => new ScorablePhenome([v])
-  );
+  const population: Phenome[] = range(1, 101).map((v) => new Phenome([v]));
   const selector: SelectionFunction = truncationFactory(0.25);
   let result: Phenome[];
 

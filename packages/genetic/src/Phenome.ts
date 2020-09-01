@@ -1,16 +1,8 @@
 import { clone } from "ramda";
-export interface Scorable {
-    score: number;
-}
 
 export type PhenomeValueType = number | string | object;
 
-export interface Phenome {
-    value: PhenomeValueType[];
-    clone: () => Phenome;
-}
-
-export class ScorablePhenome implements Phenome, Scorable {
+export class Phenome {
     public score: number = 0;
     constructor(private v: PhenomeValueType[]) {}
 
@@ -19,7 +11,7 @@ export class ScorablePhenome implements Phenome, Scorable {
     }
 
     clone() {
-        return new ScorablePhenome(clone(this.value));
+        return new Phenome(clone(this.value));
     }
 
     withScore(score: number) {

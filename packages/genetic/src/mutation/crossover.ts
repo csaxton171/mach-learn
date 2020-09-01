@@ -1,4 +1,4 @@
-import { Phenome, PhenomeValueType, ScorablePhenome } from "../Phenome";
+import { Phenome, PhenomeValueType } from "../Phenome";
 import { RandomNatural, chanceRandomNatural } from "../randomisation";
 import { range } from "ramda";
 import { strict as assert } from "assert";
@@ -57,5 +57,5 @@ export const crossoverMutationFactory = (
             offspring2[i] = findUnallocated(used1, parent2);
         });
 
-    return [new ScorablePhenome(offspring1), new ScorablePhenome(offspring2)];
+    return [new Phenome(offspring1), new Phenome(offspring2)];
 };
